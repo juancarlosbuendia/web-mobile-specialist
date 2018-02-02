@@ -1,32 +1,65 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="wms-app">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>Hello [[prop1]]!</h2>
-  </template>
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <app-drawer-layout fullbleed>
+            <app-drawer swipe-open slot="drawer">
+                <app-header-layout has-scrolling-region>
+                    <app-header fixed slot="header">
+                        <h2>Menu</h2>
+                    </app-header>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                </app-header-layout>
+            </app-drawer>
+            <div>
+                <h1>Lista de asistencia</h1>
+                <template is="dom-repeat" items="[[participants]]" as="participant">
+                    <p>[[participant.name]]</p>
+                </template>
+                <p>¿No estás inscrito aún?</p>
+                <paper-input id="name" label="Introduce tu nombre completo"></paper-input>
+                <paper-button on-tap="saveNewParticipant">Inscribirse</paper-button>
+            </div>
+        </app-drawer-layout>
+    </template>
 
-  <script>
-    /**
-     * @customElement
-     * @polymer
-     */
-    class WmsApp extends Polymer.Element {
-      static get is() { return 'wms-app'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'wms-app'
-          }
-        };
-      }
-    }
+    <script>
+        /**
+         * @customElement
+         * @polymer
+         */
+        class WmsApp extends Polymer.Element {
+            static get is() {
+                return 'wms-app';
+            }
 
-    window.customElements.define(WmsApp.is, WmsApp);
-  </script>
+            static get properties() {
+                return {
+                    participants: {
+                        type: Array,
+                        value: []
+                    }
+                };
+            }
+
+            saveNewParticipant() {
+                let name = this.$.name.value;
+                this.push('participants', {
+                    name: name
+                });
+            }
+        }
+
+        window.customElements.define(WmsApp.is, WmsApp);
+    </script>
 </dom-module>

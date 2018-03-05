@@ -1,0 +1,30 @@
+{
+  "name": "web-mobile-specialist",
+  "version": "1.0.0",
+  "description": "Course for web mobile specialist",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alfonsorios96/web-mobile-specialist.git"
+  },
+  "keywords": [
+    "pwa",
+    "es6"
+  ],
+  "author": "Alfonso Rios <malforime@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alfonsorios96/web-mobile-specialist/issues"
+  },
+  "homepage": "https://github.com/alfonsorios96/web-mobile-specialist#readme"
+}

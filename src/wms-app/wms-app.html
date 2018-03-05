@@ -2,12 +2,37 @@
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../redux.html">
 
 <dom-module id="wms-app">
     <template>
         <style>
             :host {
                 display: block;
+            }
+
+            paper-button.info {
+                background: #00b0ff;
+                color: white;
+            }
+
+            paper-button.actions {
+                background: #4caf50;
+                color: white;
+            }
+
+            .row {
+                display: flex;
+                flex-direction: row;
+                vertical-align: middle;
+            }
+
+            .row paper-button {
+                position: absolute;
+                right: 0;
             }
         </style>
         <app-drawer-layout fullbleed>
@@ -22,13 +47,31 @@
                 </app-header-layout>
             </app-drawer>
             <div>
-                <h1>Lista de asistencia</h1>
-                <template is="dom-repeat" items="[[participants]]" as="participant">
-                    <p>[[participant.name]]</p>
-                </template>
-                <p>¿No estás inscrito aún?</p>
+                <h2>¿No estás inscrito aún?</h2>
                 <paper-input id="name" label="Introduce tu nombre completo"></paper-input>
-                <paper-button on-tap="saveNewParticipant">Inscribirse</paper-button>
+                <paper-button class="actions" on-tap="saveNewParticipant">Inscribirse</paper-button>
+
+                <h1>Lista de asistencia</h1>
+                <template is="dom-if" if="[[user]]">
+                    <paper-button class="info">
+                        <iron-icon icon="icons:help"></iron-icon>
+                        ¡Espera, tengo duda!
+                    </paper-button>
+                </template>
+                <iron-list items="[[participants]]" as="participant">
+                    <template>
+                        <paper-card>
+                            <div class="card-content">
+                                <div class="row">
+                                    <iron-icon icon="icons:verified-user"></iron-icon>
+                                    [[participant.name]]
+                                </div>
+                                <iron-icon icon="icons:perm-contact-calendar"></iron-icon>
+                                Registered at: [[getTime(participant.date)]]
+                            </div>
+                        </paper-card>
+                    </template>
+                </iron-list>
             </div>
         </app-drawer-layout>
     </template>
@@ -38,13 +81,17 @@
          * @customElement
          * @polymer
          */
-        class WmsApp extends Polymer.Element {
+        class WmsApp extends ReduxMixin(Polymer.Element) {
             static get is() {
                 return 'wms-app';
             }
 
             static get properties() {
                 return {
+                    user: {
+                        type: Object,
+                        statePath: 'user'
+                    },
                     participants: {
                         type: Array,
                         value: []
@@ -52,11 +99,47 @@
                 };
             }
 
+            static get actions() {
+                return {
+                    updateUser(user) {
+                        return {
+                            type: 'UPDATE_USER',
+                            user: user
+                        }
+                    }
+                }
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                const assistanceRef = firebase.database().ref('assistance/');
+                assistanceRef.on('child_added', (data) => {
+                    this.push('participants', data.val());
+                    // addCommentElement(postElement, data.key, data.val().text);
+                });
+
+                if (localStorage.getItem('user')) {
+                    this.dispatch('updateUser', JSON.parse(localStorage.getItem('user')));
+                }
+            }
+
+            getTime(time) {
+                let date = new Date(time);
+                return date;
+            }
+
             saveNewParticipant() {
                 let name = this.$.name.value;
-                this.push('participants', {
-                    name: name
-                });
+                let user = {
+                    name: name,
+                    date: (new Date()).getTime()
+                };
+                const students = database.ref('assistance').push();
+                students.set(user);
+                this.$.name.value = '';
+                this.dispatch('updateUser', user);
+                localStorage.setItem('user', JSON.stringify(user));
+                toastr.success('Asistencia registrada.');
             }
         }
 

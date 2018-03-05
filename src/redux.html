@@ -1,0 +1,27 @@
+<script>
+    // Create a Redux store
+    let initialState = {
+        user: null
+    };
+
+    function appReducer(state = initialState, action) {
+        let app = {
+            user: userReducer(state.user, action)
+        };
+        return app;
+    }
+
+    function userReducer(state, action) {
+        switch (action.type) {
+            case 'UPDATE_USER': {
+                return action.user;
+            }
+            default: {
+                return state;
+            }
+        }
+    }
+
+    const store = Redux.createStore(appReducer);
+    const ReduxMixin = PolymerRedux(store);
+</script>

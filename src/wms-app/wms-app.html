@@ -52,12 +52,6 @@
                 <paper-button class="actions" on-tap="saveNewParticipant">Inscribirse</paper-button>
 
                 <h1>Lista de asistencia</h1>
-                <template is="dom-if" if="[[user]]">
-                    <paper-button class="info">
-                        <iron-icon icon="icons:help"></iron-icon>
-                        ¡Espera, tengo duda!
-                    </paper-button>
-                </template>
                 <iron-list items="[[participants]]" as="participant">
                     <template>
                         <paper-card>

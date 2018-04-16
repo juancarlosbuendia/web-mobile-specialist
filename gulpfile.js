@@ -3,6 +3,7 @@
 const gulp = require('gulp');
 const template = require('gulp-template');
 const rename = require('gulp-rename');
+const browserSync = require('browser-sync').create();
 const argv = require('yargs').argv;
 
 const env = (argv.env === undefined) ? 'dev' : argv.env;

@@ -11,14 +11,16 @@
   },
   "devDependencies": {
     "dotenv": "4.0.0",
-    "gulp": "3.9.1",
-    "gulp-template": "4.0.0",
+    "gulp": "^3.9.1",
     "gulp-rename": "1.2.2",
+    "gulp-template": "4.0.0",
     "yargs": "10.0.3"
   },
   "scripts": {
-    "test": "test",
-    "dev": "gulp config --env dev"
+    "install" : "npm install",
+    "bower": "bower cache clean && bower install",
+    "develop": "npm run bower && npm run install && gulp && node server.js",
+    "prod": "npm run bower && npm run install && gulp && node server.js"
   },
   "repository": {
     "type": "git",

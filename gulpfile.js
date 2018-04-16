@@ -13,3 +13,21 @@ gulp.task('config', () => {
         .pipe(rename('.env'))
         .pipe(gulp.dest(''));
 });
+
+gulp.task('default', ['config'], () => {
+    'use strict';
+    browserSync.init({
+        server: {
+            baseDir: './',
+        }
+    });
+});
+
+gulp.task('server-watch', ['config'], (done) => {
+    'use strict';
+    browserSync.reload();
+    done();
+});
+
+
+gulp.watch('src/**/*.*', ['server-watch']);

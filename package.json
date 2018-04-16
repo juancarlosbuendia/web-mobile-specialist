@@ -9,9 +9,16 @@
   "dependencies": {
     "redux": "^3.7.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "dotenv": "4.0.0",
+    "gulp": "3.9.1",
+    "gulp-template": "4.0.0",
+    "gulp-rename": "1.2.2",
+    "yargs": "10.0.3"
+  },
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "dev": "gulp config --env dev"
   },
   "repository": {
     "type": "git",

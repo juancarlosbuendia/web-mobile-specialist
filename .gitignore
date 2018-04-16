@@ -4,3 +4,5 @@
 /functions/node_modules
 /public
 /build
+.env
+*.log

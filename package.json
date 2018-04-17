@@ -7,6 +7,7 @@
     "test": "test"
   },
   "dependencies": {
+    "express": "^4.16.3",
     "redux": "^3.7.2"
   },
   "devDependencies": {
@@ -18,11 +19,10 @@
     "yargs": "10.0.3"
   },
   "scripts": {
-    "gulp": "gulp",
     "bower": "bower cache clean && bower install",
     "prepare": "npm run bower",
-    "develop": " gulp && node server.js",
-    "prod": " gulp && node server.js"
+    "develop": " gulp --config dev && node server.js",
+    "prod": " gulp --config prod && node server.js"
   },
   "repository": {
     "type": "git",

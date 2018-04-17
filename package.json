@@ -10,15 +10,19 @@
     "redux": "^3.7.2"
   },
   "devDependencies": {
+    "browser-sync": "2.18.13",
     "dotenv": "4.0.0",
-    "gulp": "3.9.1",
-    "gulp-template": "4.0.0",
+    "gulp": "^3.9.1",
     "gulp-rename": "1.2.2",
+    "gulp-template": "4.0.0",
     "yargs": "10.0.3"
   },
   "scripts": {
-    "test": "test",
-    "dev": "gulp config --env dev"
+    "gulp": "gulp",
+    "bower": "bower cache clean && bower install",
+    "prepare": "npm run bower",
+    "develop": " gulp && node server.js",
+    "prod": " gulp && node server.js"
   },
   "repository": {
     "type": "git",

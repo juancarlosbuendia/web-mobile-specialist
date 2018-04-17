@@ -14,10 +14,16 @@ const rename = require('gulp-rename');
 const browserSync = require('browser-sync').create();
 const argv = require('yargs').argv;
 
-/*Configure file of enviorement .env */
+/*
+* @desc Configure file of enviorement
+* @file .env
+*/
 let env = argv.config ;
 
-/*assignation of environment variables obtained from the command --config with yargs*/
+/*
+ * @desc assignation of environment variables obtained from the command
+ * @params --config with yargs
+ * */
 gulp.task('config', () => {
     'use strict';
     gulp.src(`env/${env}.config`)
@@ -26,7 +32,11 @@ gulp.task('config', () => {
         .pipe(gulp.dest(''));
 });
 
-/*gulp default triggers variable levnations and begin the survey of the app with browserSync */
+
+/**
+ * @desc gulp default triggers variable levnations and begin the survey of the app with browserSync
+ * @param argv  - variable of enviorement
+ */
 gulp.task('default', ['config'], () => {
     'use strict';
     browserSync.init({
@@ -37,7 +47,10 @@ gulp.task('default', ['config'], () => {
     });
 });
 
-/*browserSync Reload Daemon */
+/*
+* @desc browserSync Reload Daemon
+* @params config
+* */
 gulp.task('server-watch', ['config'], (done) => {
     'use strict';
     browserSync.reload();

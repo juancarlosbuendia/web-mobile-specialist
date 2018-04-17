@@ -1,0 +1,7 @@
+{
+  "name": "web-mobile-specialist",
+  "short_name": "web-mobile-specialist",
+  "description": "Application for the course",
+  "start_url": "/",
+  "display": "standalone"
+}

@@ -1,0 +1,37 @@
+{
+  "name": "web-mobile-specialist",
+  "version": "1.0.0",
+  "description": "Course for web mobile specialist",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
+    "dotenv": "4.0.0",
+    "gulp": "3.9.1",
+    "gulp-template": "4.0.0",
+    "gulp-rename": "1.2.2",
+    "yargs": "10.0.3"
+  },
+  "scripts": {
+    "test": "test",
+    "dev": "gulp config --env dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alfonsorios96/web-mobile-specialist.git"
+  },
+  "keywords": [
+    "pwa",
+    "es6"
+  ],
+  "author": "Alfonso Rios <malforime@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alfonsorios96/web-mobile-specialist/issues"
+  },
+  "homepage": "https://github.com/alfonsorios96/web-mobile-specialist#readme"
+}

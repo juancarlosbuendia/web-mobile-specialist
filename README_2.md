@@ -55,6 +55,11 @@ https://127.0.0.1:3000
 
  - Write MORE Tests
 
+### COLLABOREITORS
+- Juan carlos buen dia
+- Jose Ruben Capetillo
+- Adolfo Posadas Primero
+
 License
 ----
 

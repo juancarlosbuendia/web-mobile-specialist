@@ -25,7 +25,7 @@
     "prepare-prod": "npm prun --develop && npm install --production && npm run bower",
     "prepare-dev": " npm install && npm run bower",
     "develop": "gulp --config dev",
-    "prod": "gulp --config prod &&  && node server.js"
+    "prod": "gulp --config prod && node server.js"
   },
   "repository": {
     "type": "git",

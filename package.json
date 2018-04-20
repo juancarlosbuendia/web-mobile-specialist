@@ -21,8 +21,8 @@
   "scripts": {
     "bower": "bower cache clean && bower install",
     "prepare": "npm run bower",
-    "develop": " gulp --config dev && node server.js",
-    "prod": " gulp --config prod && node server.js"
+    "develop": " gulp  && node server.js",
+    "prod": " gulp --env prod && node server.js"
   },
   "repository": {
     "type": "git",

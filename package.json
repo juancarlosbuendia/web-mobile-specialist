@@ -7,8 +7,10 @@
     "test": "test"
   },
   "dependencies": {
+    "bower": "^1.8.4",
     "express": "^4.16.3",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "systemjs": "^0.21.3"
   },
   "devDependencies": {
     "browser-sync": "2.18.13",
@@ -20,7 +22,8 @@
   },
   "scripts": {
     "bower": "bower cache clean && bower install",
-    "prepare": "npm run bower",
+    "prepare-prod": "npm prun --develop && npm install --production && npm run bower",
+    "prepare-dev": " npm install && npm run bower",
     "develop": " gulp  && node server.js",
     "prod": " gulp --env prod && node server.js"
   },

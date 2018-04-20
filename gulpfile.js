@@ -7,6 +7,9 @@ const browserSync = require('browser-sync').create();
 
 const env = (argv.env === undefined) ? 'dev' : argv.env;
 
+const port = (argv.env === undefined) ? 5000 : 4000;
+
+
 
 // Begins enviroment config
 
@@ -35,6 +38,7 @@ gulp.task('default', ['config'], () => {
             baseDir: './',
 
         },
+        port:  port
     });
 });
 

@@ -15,17 +15,20 @@
   "devDependencies": {
     "browser-sync": "2.18.13",
     "dotenv": "4.0.0",
+    "easy-front-build": "^0.2.4",
     "gulp": "^3.9.1",
     "gulp-rename": "1.2.2",
     "gulp-template": "4.0.0",
+    "usage-libraries-validate": "^0.1.0",
     "yargs": "10.0.3"
   },
   "scripts": {
     "bower": "bower cache clean && bower install",
     "prepare-prod": "npm prun --develop && npm install --production && npm run bower",
     "prepare-dev": " npm install && npm run bower",
-    "develop": " gulp  && node server.js",
-    "prod": " gulp --env prod && node server.js"
+    "develop": " npm run prepare-dev && gulp  && node server.js",
+    "prod": " npm run prepare-prod && gulp --env prod && node server.js",
+    "validate": "usage-libraries-validate"
   },
   "repository": {
     "type": "git",

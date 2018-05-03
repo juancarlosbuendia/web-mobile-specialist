@@ -10,64 +10,102 @@
 <dom-module id="wms-app">
     <template>
         <style>
-            :host {
-                display: block;
+            input[type=text], input[type=password] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
             }
 
-            paper-button.info {
-                background: #00b0ff;
+            div{
+              margin: 0 auto;
+                max-width: 500px;
+
+
+            }
+
+            button {
+                background-color: #4CAF50;
                 color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                width: 100%;
             }
 
-            paper-button.actions {
-                background: #4caf50;
-                color: white;
+            button:hover {
+                opacity: 0.8;
             }
 
-            .row {
-                display: flex;
-                flex-direction: row;
-                vertical-align: middle;
+            .cancelbtn {
+                width: auto;
+                padding: 10px 18px;
+                background-color: #f44336;
             }
 
-            .row paper-button {
-                position: absolute;
-                right: 0;
+            .imgcontainer {
+                text-align: center;
+                margin: 24px 0 12px 0;
+                background-color: #0a3142;
+                width: 200px;
+                height: 100px;
+                border-radius: 50%;
             }
+
+            avatar {
+
+
+            }
+
+            .container {
+                padding: 16px;
+            }
+
+            span.psw {
+                float: right;
+                padding-top: 16px;
+            }
+
+            /* Change styles for span and cancel button on extra small screens */
+            @media screen and (max-width: 300px) {
+                span.psw {
+                    display: block;
+                    float: none;
+                }
+                .cancelbtn {
+                    width: 100%;
+                }
+            }
+
         </style>
-        <app-drawer-layout fullbleed>
-            <app-drawer swipe-open slot="drawer">
-                <app-header-layout has-scrolling-region>
-                    <app-header fixed slot="header">
-                        <h2>Menu</h2>
-                    </app-header>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                </app-header-layout>
-            </app-drawer>
-            <div>
-                <h2>¿No estás inscrito aún?</h2>
-                <paper-input id="name" label="Introduce tu nombre completo"></paper-input>
-                <paper-button class="actions" on-tap="saveNewParticipant">Inscribirse</paper-button>
 
-                <h1>Lista de asistencia</h1>
-                <iron-list items="[[participants]]" as="participant">
-                    <template>
-                        <paper-card>
-                            <div class="card-content">
-                                <div class="row">
-                                    <iron-icon icon="icons:verified-user"></iron-icon>
-                                    [[participant.name]]
-                                </div>
-                                <iron-icon icon="icons:perm-contact-calendar"></iron-icon>
-                                Registered at: [[getTime(participant.date)]]
-                            </div>
-                        </paper-card>
-                    </template>
-                </iron-list>
+        <div>
+
+            <div >
+                <img class="imgcontainer" src="../../src/img/doubleblink.png" alt="Avatar"  >
             </div>
-        </app-drawer-layout>
+
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <button type="submit">Login</button>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" class="cancelbtn">Cancel</button>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+        </div>
     </template>
 
     <script>
@@ -78,62 +116,6 @@
         class WmsApp extends ReduxMixin(Polymer.Element) {
             static get is() {
                 return 'wms-app';
-            }
-
-            static get properties() {
-                return {
-                    user: {
-                        type: Object,
-                        statePath: 'user'
-                    },
-                    participants: {
-                        type: Array,
-                        value: []
-                    }
-                };
-            }
-
-            static get actions() {
-                return {
-                    updateUser(user) {
-                        return {
-                            type: 'UPDATE_USER',
-                            user: user
-                        }
-                    }
-                }
-            }
-
-            connectedCallback() {
-                super.connectedCallback();
-                const assistanceRef = firebase.database().ref('assistance/');
-                assistanceRef.on('child_added', (data) => {
-                    this.push('participants', data.val());
-                    // addCommentElement(postElement, data.key, data.val().text);
-                });
-
-                if (localStorage.getItem('user')) {
-                    this.dispatch('updateUser', JSON.parse(localStorage.getItem('user')));
-                }
-            }
-
-            getTime(time) {
-                let date = new Date(time);
-                return date;
-            }
-
-            saveNewParticipant() {
-                let name = this.$.name.value;
-                let user = {
-                    name: name,
-                    date: (new Date()).getTime()
-                };
-                const students = database.ref('assistance').push();
-                students.set(user);
-                this.$.name.value = '';
-                this.dispatch('updateUser', user);
-                localStorage.setItem('user', JSON.stringify(user));
-                toastr.success('Asistencia registrada.');
             }
         }
 
